@@ -3,10 +3,12 @@ import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 
 const MyParcels = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
     const { data: parcels = [], refetch } = useQuery({
         queryKey: ['my-parcels', user.email],
         queryFn: async () => {
@@ -24,7 +26,7 @@ const MyParcels = () => {
 
     const handlePay = (id) => {
         console.log("Proceed to payment for", id);
-        // Implement your payment logic
+        navigate(`/dashboard/payment/${id}`)
     };
 
     const handleDelete = async (id) => {
@@ -40,7 +42,7 @@ const MyParcels = () => {
         });
         if (confirm.isConfirmed) {
             try {
-                
+
                 axiosSecure.delete(`/parcels/${id}`)
                     .then(res => {
                         console.log(res.data);
@@ -56,7 +58,7 @@ const MyParcels = () => {
                         refetch();
                     })
 
-                
+
             } catch (err) {
                 Swal.fire("Error", err.message || "Failed to delete parcel", "error");
             }

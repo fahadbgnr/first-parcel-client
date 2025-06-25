@@ -4,13 +4,21 @@ import FirstParcel from '../FirstParcelLogo/FirstParcel';
 import useAuth from '../../../hooks/useAuth';
 
 const NavBar = () => {
-    const {user} = useAuth();
+    const { user, logOut } = useAuth();
+
+    
+    const handleLogOut = () => {
+        logOut()
+            .then(result => { console.log(result) })
+            .catch(error => console.log(error))
+    }
+
     const navItems = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/sendParcel">Send A Parcel</NavLink></li>
         <li><NavLink to="/coverage">Coverage</NavLink></li>
 
-         {
+        {
             user && <>
                 <li><NavLink to="/dashboard">Dashboard</NavLink></li>
             </>
@@ -18,7 +26,7 @@ const NavBar = () => {
 
 
         <li><NavLink to="/about">About Us</NavLink></li>
-        
+
 
     </>
     return (
@@ -31,9 +39,9 @@ const NavBar = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                       {
-                        navItems
-                       }
+                        {
+                            navItems
+                        }
                     </ul>
                 </div>
                 <a className=" text-xl">
@@ -42,14 +50,18 @@ const NavBar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                   {
-                    navItems
-                   }
+                    {
+                        navItems
+                    }
                 </ul>
             </div>
             <div className="navbar-end">
-               <Link to='/login' className='btn btn-primary text-black'>Login</Link>
-               <Link to='/register' className='btn btn-primary text-black'>Register</Link>
+                {/* <Link to='/login' className='btn btn-primary text-black'>Login</Link>
+               <Link to='/register' className='btn btn-primary text-black'>Register</Link> */}
+                {user ?
+                    <button onClick={handleLogOut} className='btn btn-primary text-black'>Logout</button>
+                    :
+                    <Link to="/login" className='btn btn-primary  text-black'>Login</Link>}
             </div>
         </div>
     );

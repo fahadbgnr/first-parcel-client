@@ -12,6 +12,12 @@ import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import TrackParcel from "../pages/Dashboard/TrackParcel/TrackParcel";
+import BeARider from "../pages/Dashboard/BeARider/BeARider";
+import PendingRiders from "../pages/Dashboard/PendingRiders/PendingRiders";
+import ActiveRiders from "../pages/Dashboard/ActiveRiders/ActiveRiders";
+import MakeAdmin from "../pages/Dashboard/MakeAdmin/MakeAdmin";
+import AdminRoute from "../routes/AdminRoute";
+import Forbidden from "../pages/Forbidden/Forbidden";
 
 export const router = createBrowserRouter([
     {
@@ -25,6 +31,15 @@ export const router = createBrowserRouter([
             {
                 path: 'coverage',
                 Component: Coverage,
+                loader: () => fetch('./serviceCenter.json')
+            },
+            {
+                path: 'forbidden',
+                Component: Forbidden
+            },
+            {
+                path: 'beARider',
+                element: <PrivateRoute><BeARider></BeARider></PrivateRoute>,
                 loader: () => fetch('./serviceCenter.json')
             },
             {
@@ -71,6 +86,18 @@ export const router = createBrowserRouter([
             {
                 path: 'track',
                 Component: TrackParcel
+            },
+            {
+                path: 'pending-riders',
+                Component: PendingRiders
+            },
+            {
+                path: 'active-riders',
+                Component: ActiveRiders
+            },
+            {
+                path: 'makeAdmin',
+                element: <AdminRoute><MakeAdmin></MakeAdmin></AdminRoute>
             }
         ]
     }

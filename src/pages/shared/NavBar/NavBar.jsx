@@ -6,7 +6,7 @@ import useAuth from '../../../hooks/useAuth';
 const NavBar = () => {
     const { user, logOut } = useAuth();
 
-    
+
     const handleLogOut = () => {
         logOut()
             .then(result => { console.log(result) })
@@ -24,7 +24,7 @@ const NavBar = () => {
             </>
         }
 
-
+        <li><NavLink to="/beARider">Be a Rider</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
 
 
@@ -44,9 +44,9 @@ const NavBar = () => {
                         }
                     </ul>
                 </div>
-                <a className=" text-xl">
+                <span className=" text-xl">
                     <FirstParcel></FirstParcel>
-                </a>
+                </span>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
